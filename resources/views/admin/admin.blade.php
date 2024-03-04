@@ -9,6 +9,13 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.bootstrap5.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+    <style>
+        @layer reset {
+            button {
+                all: unset;
+            }
+        }
+    </style>
     <title>@yield('title') | Administration</title>
 </head>
 <body>
@@ -30,28 +37,26 @@
                 <li class="nav-item">
                     <a href="{{ route('admin.option.index') }}" @class(['nav-link', 'active' => str_contains($route, 'option.')])>Gérer les option</a>
                 </li>
+            </ul>
+            <div class="ms-auto">
+                @auth
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button class="nav-link">Se déconnecter</button>
+                            </form>
+                        </li>
+                    </ul>
+                @endauth
+            </div>
+        </div>
     </div>
 </nav>
 
 <div class="container mt-5">
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @php
-    //Partie du bas jusqu'avant le "@yield('content')" à enlever
-    @endphp
-    @if($errors->any())
-        <div class="alert alert-danger">
-            <ul class="my-0">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    @include('shared.flash')
     @yield('content')
 </div>
 
