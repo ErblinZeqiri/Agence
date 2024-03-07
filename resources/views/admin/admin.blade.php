@@ -9,11 +9,21 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.bootstrap5.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <style>
         @layer reset {
             button {
                 all: unset;
             }
+        }
+        .htmx-indicator {
+            display: none;
+        }
+        .htmx-request .htmx-indicator{
+            display: inline-block;
+        }
+        .htmx-request.htmx-indicator {
+            display: inline-block;
         }
     </style>
     <title>@yield('title') | Administration</title>
